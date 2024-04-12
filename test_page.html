@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Year Dropdown</title>
+    <style>
+        .pdf-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-image: url('https://amundrl.github.io/PDF_file_icon.svg.png');
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="year-dropdown">
+        <option value="">Select a year</option>
+        <script>
+            var currentYear = new Date().getFullYear();
+            for (var i = currentYear; i >= currentYear - 10; i--) {
+                document.write('<option value="' + i + '">' + i + '</option>');
+            }
+        </script>
+    </select>
+    <div id="pdf-icons"></div>
+    <script>
+        var dropdown = document.getElementById('year-dropdown');
+        var pdfIcons = document.getElementById('pdf-icons');
+
+        dropdown.addEventListener('change', function () {
+            var selectedYear = dropdown.value;
+            pdfIcons.innerHTML = '';
+
+            if (selectedYear !== '') {
+                for (var i = 1; i <= 12; i++) {
+                    var pdfIcon = document.createElement('a');  // create an 'a' element
+                    pdfIcon.className = 'pdf-icon';
+                    pdfIcon.href = 'https://amundrl.github.io/test_page.html?year=' + selectedYear + '&index=' + i;  // set the 'href' attribute
+                    pdfIcons.appendChild(pdfIcon);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
