@@ -2,46 +2,61 @@
 <html>
 
 <head>
-    <title>Year Dropdown</title>
+    <title>PDF Icons</title>
     <style>
-        .pdf-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-image: url('https://amundrl.github.io/PDF_file_icon.svg.png');
-            background-size: cover;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <select id="year-dropdown">
-        <option value="">Select a year</option>
+    <h1>Select a Year</h1>
+    <select id="searchIntervalIndex-button" onchange="showSubmitButton()">
+        <option value="">Select a Year</option>
+        <option value="2010">2010</option>
+        <option value="2011">2011</option>
+        <option value="2012">2012</option>
+        <option value="2013">2013</option>
+        <option value="2014">2014</option>
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+    </select>
+
+    <div id="submitButton" class="hidden">
+        <input id="archiveSearchSubmit" class="formsButton" type="submit" value="Hent meldinger"
+            title="Trykk her for å gjennomføre søket." onclick="showPDFIcons()">
+    </div>
+
+    <div id="pdfIcons" class="hidden">
         <script>
-            var currentYear = new Date().getFullYear();
-            for (var i = currentYear; i >= currentYear - 10; i--) {
-                document.write('<option value="' + i + '">' + i + '</option>');
+            var selectedYear = document.getElementById("searchIntervalIndex-button").value;
+            for (var i = 0; i < 9; i++) {
+                var title = "PDF " + selectedYear + " - Index " + i;
+                document.write('<a href="https://amundrl.github.io/test_page.html?year=' + selectedYear + '&index=' + i + '" title="' + title + '"><img src="https://amundrl.github.io/bilag_ikon.png" alt="PDF Icon"></a>');
             }
         </script>
-    </select>
-    <div id="pdf-icons"></div>
+    </div>
+
     <script>
-        var dropdown = document.getElementById('year-dropdown');
-        var pdfIcons = document.getElementById('pdf-icons');
+        function showSubmitButton() {
+            var yearDropdown = document.getElementById("searchIntervalIndex-button");
+            var submitButton = document.getElementById("submitButton");
 
-        dropdown.addEventListener('change', function () {
-            var selectedYear = dropdown.value;
-            pdfIcons.innerHTML = '';
-
-            if (selectedYear !== '') {
-                for (var i = 1; i <= 12; i++) {
-                    var pdfIcon = document.createElement('a');  // create an 'a' element
-                    pdfIcon.className = 'pdf-icon';
-                    pdfIcon.href = 'https://amundrl.github.io/test_page.html?year=' + selectedYear + '&index=' + i;  // set the 'href' attribute
-                    pdfIcons.appendChild(pdfIcon);
-                }
+            if (yearDropdown.value !== "") {
+                submitButton.classList.remove("hidden");
+            } else {
+                submitButton.classList.add("hidden");
             }
-        });
+        }
+
+        function showPDFIcons() {
+            var pdfIcons = document.getElementById("pdfIcons");
+            pdfIcons.classList.remove("hidden");
+        }
     </script>
 </body>
 
